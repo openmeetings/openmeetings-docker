@@ -13,7 +13,7 @@
 # #############################################
 
 FROM ubuntu:16.04
-MAINTAINER Apache OpenMeetings dev team version: 3.1.3 <dev@openmeetings.apache.org>
+MAINTAINER Apache OpenMeetings dev team version: 3.1.5 <dev@openmeetings.apache.org>
 
 ENV DB_ROOT_PASS '12345'
 ENV OM_DB_NAME 'open313'
@@ -48,11 +48,6 @@ RUN dpkg -i swftools_0.9.1-1_amd64.deb liboil0.3_0.3.17-2ubuntu4_amd64.deb
 #put swf tools on hold
 RUN echo "swftools hold" | dpkg --set-selections
 
-WORKDIR /opt
-RUN wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/jodconverter/jodconverter-core-3.0-beta-4-dist.zip
-RUN unzip jodconverter-core-3.0-beta-4-dist.zip
-RUN ln -nfs /opt/jodconverter-core-3.0-beta-4 jod
-
 WORKDIR ${work}
 COPY scripts/* ./
 RUN chmod a+x *.sh
@@ -63,10 +58,10 @@ RUN echo "mysql-server mysql-server/root_password_again password ${DB_ROOT_PASS}
 RUN apt-get -y install mysql-server mysql-client
 
 WORKDIR ${work}
-RUN wget http://www-eu.apache.org/dist/openmeetings/3.1.3/bin/apache-openmeetings-3.1.3.tar.gz
+RUN wget http://www-eu.apache.org/dist/openmeetings/3.1.5/bin/apache-openmeetings-3.1.5.tar.gz
 
 WORKDIR ${OM_HOME}
-RUN tar -xzf /root/work/apache-openmeetings-3.1.3.tar.gz
+RUN tar -xzf /root/work/apache-openmeetings-3.1.5.tar.gz
 RUN wget http://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.39/mysql-connector-java-5.1.39.jar -P webapps/openmeetings/WEB-INF/lib
 
 RUN ${work}/om_install.sh
