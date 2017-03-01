@@ -13,8 +13,9 @@
 # #############################################
 
 FROM ubuntu:16.04
-MAINTAINER Apache OpenMeetings dev team version: 3.1.5 <dev@openmeetings.apache.org>
+MAINTAINER Apache OpenMeetings dev team version: 3.2.0 <dev@openmeetings.apache.org>
 
+ENV OM_VERSION '3.2.0'
 ENV DB_ROOT_PASS '12345'
 ENV OM_DB_NAME 'open313'
 ENV OM_DB_USER 'om_admin'
@@ -58,10 +59,10 @@ RUN echo "mysql-server mysql-server/root_password_again password ${DB_ROOT_PASS}
 RUN apt-get -y install mysql-server mysql-client
 
 WORKDIR ${work}
-RUN wget http://www-eu.apache.org/dist/openmeetings/3.1.5/bin/apache-openmeetings-3.1.5.tar.gz
+RUN wget http://www-eu.apache.org/dist/openmeetings/${OM_VERSION}/bin/apache-openmeetings-${OM_VERSION}.tar.gz
 
 WORKDIR ${OM_HOME}
-RUN tar -xzf /root/work/apache-openmeetings-3.1.5.tar.gz
+RUN tar -xzf /root/work/apache-openmeetings-${OM_VERSION}.tar.gz
 RUN wget http://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.39/mysql-connector-java-5.1.39.jar -P webapps/openmeetings/WEB-INF/lib
 
 RUN ${work}/om_install.sh
