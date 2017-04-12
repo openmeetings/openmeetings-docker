@@ -15,7 +15,7 @@
 FROM ubuntu:16.04
 MAINTAINER Apache OpenMeetings dev team version: 3.2.0 <dev@openmeetings.apache.org>
 
-ENV OM_VERSION '3.2.0'
+ENV OM_VERSION '3.2.1'
 ENV DB_ROOT_PASS '12345'
 ENV OM_DB_NAME 'open313'
 ENV OM_DB_USER 'om_admin'
