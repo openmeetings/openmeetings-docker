@@ -27,6 +27,7 @@ ENV OM_USER 'om_admin'
 ENV OM_PASS '12345'
 ENV work /root/work
 ENV OM_HOME /opt/red5
+ENV MYSQL_J_VER '5.1.42'
 
 RUN cat /etc/issue
 
@@ -66,7 +67,7 @@ RUN wget http://www-eu.apache.org/dist/openmeetings/${OM_VERSION}/bin/apache-ope
 
 WORKDIR ${OM_HOME}
 RUN tar -xzf ${work}/apache-openmeetings-${OM_VERSION}.tar.gz
-RUN wget http://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.39/mysql-connector-java-5.1.39.jar -P webapps/openmeetings/WEB-INF/lib
+RUN wget http://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_J_VER}/mysql-connector-java-${MYSQL_J_VER}.jar -P webapps/openmeetings/WEB-INF/lib
 
 RUN ${work}/om_install.sh
 
