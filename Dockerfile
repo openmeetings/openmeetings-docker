@@ -15,9 +15,12 @@
 FROM ubuntu:16.04
 MAINTAINER Apache OpenMeetings dev team version: 3.2.1 <dev@openmeetings.apache.org>
 
-ENV OM_VERSION '3.2.1'
+ENV OM_VER_MAJ '3'
+ENV OM_VER_MIN '2'
+ENV OM_VER_MIC '1'
+ENV OM_VERSION "${OM_VER_MAJ}.${OM_VER_MIN}.${OM_VER_MIC}"
 ENV DB_ROOT_PASS '12345'
-ENV OM_DB_NAME 'open321'
+ENV OM_DB_NAME "open${OM_VER_MAJ}_${OM_VER_MIN}_${OM_VER_MIC}"
 ENV OM_DB_USER 'om_admin'
 ENV OM_DB_PASS '12345'
 ENV OM_USER 'om_admin'
@@ -62,7 +65,7 @@ WORKDIR ${work}
 RUN wget http://www-eu.apache.org/dist/openmeetings/${OM_VERSION}/bin/apache-openmeetings-${OM_VERSION}.tar.gz
 
 WORKDIR ${OM_HOME}
-RUN tar -xzf /root/work/apache-openmeetings-${OM_VERSION}.tar.gz
+RUN tar -xzf ${work}/apache-openmeetings-${OM_VERSION}.tar.gz
 RUN wget http://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.39/mysql-connector-java-5.1.39.jar -P webapps/openmeetings/WEB-INF/lib
 
 RUN ${work}/om_install.sh
