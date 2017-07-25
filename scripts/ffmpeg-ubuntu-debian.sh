@@ -15,7 +15,7 @@
 # FFmpeg compilation for Ubuntu and Debian.
 # https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
 
-apt install -y autoconf automake build-essential libass-dev libfreetype6-dev libtheora-dev libtool libvorbis-dev pkg-config texi2html zlib1g-dev mercurial cmake yasm libx264-dev libmp3lame-dev libopus-dev
+apt install -y autoconf automake build-essential libass-dev libfreetype6-dev libtheora-dev libtool libvorbis-dev pkg-config texinfo wget zlib1g-dev git mercurial cmake yasm libx264-dev libmp3lame-dev libopus-dev libvpx-dev
 
 # Create a directory for sources.
 FFMPEG=${work}/ffmpeg
@@ -44,16 +44,6 @@ autoreconf -fiv
 make
 make install
 make distclean
-
-
-cd ${SOURCES}
-wget http://storage.googleapis.com/downloads.webmproject.org/releases/webm/libvpx-1.5.0.tar.bz2
-tar xjvf libvpx-1.5.0.tar.bz2
-cd libvpx-1.5.0
-PATH="${BIN}:$PATH" ./configure --prefix="${BUILD}" --disable-examples --disable-unit-tests
-PATH="${BIN}" make
-make install
-make clean
 
 
 cd ${SOURCES}

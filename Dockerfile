@@ -16,8 +16,8 @@ FROM ubuntu:16.04
 MAINTAINER Apache OpenMeetings dev team version: 3.2.1 <dev@openmeetings.apache.org>
 
 ENV OM_VER_MAJ '3'
-ENV OM_VER_MIN '2'
-ENV OM_VER_MIC '1'
+ENV OM_VER_MIN '3'
+ENV OM_VER_MIC '0'
 ENV OM_VERSION "${OM_VER_MAJ}.${OM_VER_MIN}.${OM_VER_MIC}"
 ENV DB_ROOT_PASS '12345'
 ENV OM_DB_NAME "open${OM_VER_MAJ}_${OM_VER_MIN}_${OM_VER_MIC}"
