@@ -13,10 +13,10 @@
 # #############################################
 
 FROM ubuntu:16.04
-MAINTAINER Apache OpenMeetings dev team version: 3.2.1 <dev@openmeetings.apache.org>
+MAINTAINER Apache OpenMeetings dev team version: 4.0.0 <dev@openmeetings.apache.org>
 
-ENV OM_VER_MAJ '3'
-ENV OM_VER_MIN '3'
+ENV OM_VER_MAJ '4'
+ENV OM_VER_MIN '0'
 ENV OM_VER_MIC '0'
 ENV OM_VERSION "${OM_VER_MAJ}.${OM_VER_MIN}.${OM_VER_MIC}"
 ENV DB_ROOT_PASS '12345'
@@ -27,7 +27,7 @@ ENV OM_USER 'om_admin'
 ENV OM_PASS '12345'
 ENV work /root/work
 ENV OM_HOME /opt/red5
-ENV MYSQL_J_VER '5.1.42'
+ENV MYSQL_J_VER '5.1.43'
 
 RUN cat /etc/issue
 
@@ -45,15 +45,6 @@ RUN apt-get install -y oracle-java8-installer
 RUN apt-get install -y libreoffice --no-install-recommends
 
 WORKDIR ${work}
-RUN wget https://launchpad.net/ella-renaissance/ella-renaissance-beta/beta1/+download/swftools_0.9.1-1_amd64.deb
-RUN wget http://mirrors.kernel.org/ubuntu/pool/universe/libo/liboil/liboil0.3_0.3.17-2ubuntu4_amd64.deb
-RUN apt-get install -y libgstreamer-plugins-base0.10-0 libgstreamer0.10-0 libgtk2.0-0 libpango1.0-0 libjpeg62
-RUN dpkg -i swftools_0.9.1-1_amd64.deb liboil0.3_0.3.17-2ubuntu4_amd64.deb
-
-#put swf tools on hold
-RUN echo "swftools hold" | dpkg --set-selections
-
-WORKDIR ${work}
 COPY scripts/* ./
 RUN chmod a+x *.sh
 RUN ./ffmpeg-ubuntu-debian.sh
@@ -63,7 +54,8 @@ RUN echo "mysql-server mysql-server/root_password_again password ${DB_ROOT_PASS}
 RUN apt-get -y install mysql-server mysql-client
 
 WORKDIR ${work}
-RUN wget http://www-eu.apache.org/dist/openmeetings/${OM_VERSION}/bin/apache-openmeetings-${OM_VERSION}.tar.gz
+#RUN wget http://www-eu.apache.org/dist/openmeetings/${OM_VERSION}/bin/apache-openmeetings-${OM_VERSION}.tar.gz
+RUN wget https://builds.apache.org/view/M-R/view/OpenMeetings/job/openmeetings/lastSuccessfulBuild/apache-openmeetings-4.0.0-SNAPSHOT.tar.gz -O apache-openmeetings-${OM_VERSION}.tar.gz
 
 WORKDIR ${OM_HOME}
 RUN tar -xzf ${work}/apache-openmeetings-${OM_VERSION}.tar.gz
