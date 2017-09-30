@@ -24,10 +24,10 @@ ENV OM_DB_NAME "open${OM_VER_MAJ}_${OM_VER_MIN}_${OM_VER_MIC}"
 ENV OM_DB_USER 'om_admin'
 ENV OM_DB_PASS '12345'
 ENV OM_USER 'om_admin'
-ENV OM_PASS '12345'
+ENV OM_PASS '1Q2w3e4r5t^y'
 ENV work /root/work
 ENV OM_HOME /opt/red5
-ENV MYSQL_J_VER '5.1.43'
+ENV MYSQL_J_VER '5.1.44'
 
 RUN cat /etc/issue
 
@@ -64,5 +64,7 @@ RUN wget http://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_J_VER}
 RUN ${work}/om_install.sh
 
 EXPOSE 5080 1935
-CMD bash ${work}/om.sh
+#CMD bash ${work}/om.sh
+
+ENTRYPOINT [ "bash", "-c", "${work}/om.sh" ]
 
