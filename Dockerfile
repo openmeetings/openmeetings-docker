@@ -13,12 +13,14 @@
 # #############################################
 
 FROM ubuntu:16.04
-MAINTAINER Apache OpenMeetings dev team version: 4.0.0 <dev@openmeetings.apache.org>
-
 ENV OM_VER_MAJ '4'
 ENV OM_VER_MIN '0'
 ENV OM_VER_MIC '0'
 ENV OM_VERSION "${OM_VER_MAJ}.${OM_VER_MIN}.${OM_VER_MIC}"
+LABEL vendor="Apache OpenMeetings dev team"
+LABEL version="${OM_VERSION}"
+LABEL maintainer=dev@openmeetings.apache.org
+
 ENV DB_ROOT_PASS '12345'
 ENV OM_DB_NAME "open${OM_VER_MAJ}_${OM_VER_MIN}_${OM_VER_MIC}"
 ENV OM_DB_USER 'om_admin'
