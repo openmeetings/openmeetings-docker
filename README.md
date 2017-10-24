@@ -12,7 +12,7 @@ docker push openmeetings-docker-registry.bintray.io/server
 ```
 * to run pre-build OM:
 ```docker
-docker run -i --rm --name om-server openmeetings-docker-registry.bintray.io/server:latest
+docker run -i --rm --name om-server -p 5080:5080 -p 1935:1935 openmeetings-docker-registry.bintray.io/server:latest
 ```
 * to run OM (locally built):
 ```docker
@@ -22,3 +22,9 @@ docker run -it __HASH__
 ```docker
 docker run -it __HASH__ bash
 ```
+
+* to stop:
+```docker
+docker stop $(docker ps -aq)
+```
+
