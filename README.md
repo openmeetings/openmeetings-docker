@@ -10,7 +10,11 @@ docker login -u openmeetings -p <HASHED_PWD> openmeetings-docker-registry.bintra
 docker tag om-server openmeetings-docker-registry.bintray.io/server
 docker push openmeetings-docker-registry.bintray.io/server
 ```
-* to run OM:
+* to run pre-build OM:
+```docker
+docker run -i --rm --name om-server openmeetings-docker-registry.bintray.io/server:latest
+```
+* to run OM (locally built):
 ```docker
 docker run -it __HASH__
 ```
