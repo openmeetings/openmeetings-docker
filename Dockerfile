@@ -13,12 +13,14 @@
 # #############################################
 
 FROM ubuntu:16.04
-MAINTAINER Apache OpenMeetings dev team version: 3.3.1 <dev@openmeetings.apache.org>
-
 ENV OM_VER_MAJ '3'
 ENV OM_VER_MIN '3'
 ENV OM_VER_MIC '2'
 ENV OM_VERSION "${OM_VER_MAJ}.${OM_VER_MIN}.${OM_VER_MIC}"
+LABEL vendor="Apache OpenMeetings dev team"
+LABEL version="${OM_VERSION}"
+LABEL maintainer=dev@openmeetings.apache.org
+
 ENV DB_ROOT_PASS '12345'
 ENV OM_DB_NAME "open${OM_VER_MAJ}_${OM_VER_MIN}_${OM_VER_MIC}"
 ENV OM_DB_USER 'om_admin'
@@ -56,7 +58,7 @@ RUN echo "swftools hold" | dpkg --set-selections
 WORKDIR ${work}
 COPY scripts/* ./
 RUN chmod a+x *.sh
-RUN ./ffmpeg-ubuntu-debian.sh
+RUN ./ffmpg.sh
 
 RUN echo "mysql-server mysql-server/root_password password ${DB_ROOT_PASS}" | debconf-set-selections
 RUN echo "mysql-server mysql-server/root_password_again password ${DB_ROOT_PASS}" | debconf-set-selections
