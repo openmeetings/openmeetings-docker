@@ -3,6 +3,12 @@ Docker image for OM
 
 ## TIPS:
 
+* complete clean-up
+```bash
+docker rm $(docker ps -a -q)
+docker rmi $(docker images -q)
+```
+
 * to build: 
 ```docker
 docker build -t om-server .
