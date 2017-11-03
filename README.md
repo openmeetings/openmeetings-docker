@@ -30,7 +30,7 @@ docker push openmeetings-docker-images.bintray.io/server
 ```
 * to run pre-build OM:
 ```
-docker run -i --rm --name om-server -p 5080:5080 -p 1935:1935 openmeetings-docker-images.bintray.io/server:latest
+docker run -i --rm --name om-server -p 5080:5080 -p 1935:1935 openmeetings-docker-images.bintray.io/server:4.0.0
 ```
 * to run OM (locally built):
 ```
@@ -52,3 +52,4 @@ docker exec -it [container-id] bash
 ```
 docker stop $(docker ps -aq)
 ```
+
