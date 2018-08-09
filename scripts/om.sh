@@ -12,7 +12,7 @@
 # limitations under the License.
 # #############################################
 
-chown -R mysql:mysql /var/lib/mysql /var/run/mysqld && service mysql start
+sudo chown -R mysql:mysql /var/lib/mysql /var/run/mysqld && service mysql start
 
 sudo -u nobody ./red5-debug.sh
 
