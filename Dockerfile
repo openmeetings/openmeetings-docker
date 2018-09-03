@@ -29,7 +29,7 @@ ENV OM_USER 'om_admin'
 ENV OM_PASS '1Q2w3e4r5t^y'
 ENV work /root/work
 ENV OM_HOME /opt/red5
-ENV MYSQL_J_VER '8.0.11'
+ENV MYSQL_J_VER '8.0.12'
 
 RUN cat /etc/issue
 
