@@ -27,11 +27,11 @@ if [ ! -d ${BIN} ]; then
 	mkdir -p ${BIN}
 fi
 
-sudo apt-get install -y cmake mercurial
+sudo apt-get install -y cmake mercurial libnuma-dev
 cd ${SOURCES}
 hg clone https://bitbucket.org/multicoreware/x265
 cd ${SOURCES}/x265/build/linux
-PATH="${BIN}${PATH}" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${BUILD}" -DENABLE_SHARED:bool=off ../../source
+PATH="${BIN}${PATH}" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${BUILD}" -DENABLE_SHARED=off ../../source
 make
 make install
 

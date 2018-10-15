@@ -64,6 +64,8 @@ RUN wget http://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_J_VER}
 
 RUN ${work}/om_install.sh
 
+RUN sed -i 's|<policy domain="coder" rights="none" pattern="PS" />|<!--policy domain="coder" rights="none" pattern="PS" />|g; s|<policy domain="coder" rights="none" pattern="XPS" />|<policy domain="coder" rights="none" pattern="XPS" /-->|g' /etc/ImageMagick-6/policy.xml
+
 EXPOSE 5080 1935
 #CMD bash ${work}/om.sh
 
