@@ -15,7 +15,7 @@
 FROM ubuntu:16.04
 ENV OM_VER_MAJ '4'
 ENV OM_VER_MIN '0'
-ENV OM_VER_MIC '5'
+ENV OM_VER_MIC '6'
 ENV OM_VERSION "${OM_VER_MAJ}.${OM_VER_MIN}.${OM_VER_MIC}"
 LABEL vendor="Apache OpenMeetings dev team"
 LABEL version="${OM_VERSION}"
