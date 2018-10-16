@@ -1,5 +1,8 @@
 # openmeetings-docker
-Docker image for OM
+
+Docker image for OM (version 5.0.0, WebRTC *UNSTABLE*)
+
+Please use _releases_
 
 ## CREDENTIALS:
 
