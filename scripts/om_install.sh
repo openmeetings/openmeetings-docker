@@ -17,6 +17,7 @@ if [ ! -d "/var/run/mysqld" ]; then
 fi
 
 chown -R mysql:mysql /var/lib/mysql /var/run/mysqld && service mysql start
+service kurento-media-server start
 
 mysql -u root -p${DB_ROOT_PASS} -se "CREATE DATABASE ${OM_DB_NAME} DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci"
 mysql -u root -p${DB_ROOT_PASS} -se "CREATE USER '${OM_DB_USER}'@'localhost' IDENTIFIED BY '${OM_DB_PASS}'"

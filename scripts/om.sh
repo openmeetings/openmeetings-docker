@@ -12,7 +12,9 @@
 # limitations under the License.
 # #############################################
 
-chown -R mysql:mysql /var/lib/mysql /var/run/mysqld && service mysql start
+chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
 
-sudo -u nobody ./bin/catalina.sh run
+service mysql start
+service kurento-media-server start
+service tomcat run
 
