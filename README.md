@@ -28,18 +28,27 @@ docker login -u openmeetings -p <HASHED_PWD> openmeetings-docker-images.bintray.
 docker tag om-server openmeetings-docker-images.bintray.io/server
 docker push openmeetings-docker-images.bintray.io/server
 ```
+
 * to run pre-build OM:
 ```
-docker run -i --rm --name om-server -p 5080:5080 -p 1935:1935 openmeetings-docker-images.bintray.io/server:latest
+docker run -i --rm --name om-server -p 5443:5443 -p 8888:8888 openmeetings-docker-images.bintray.io/server:latest
 ```
+
 * to run OM (locally built):
 ```
-docker run -it __HASH__
+docker run -p 5443:5443 -p 8888:8888 -it __HASH__
+
+
+https://localhost:5443/openmeetings
 ```
+> (https is preferred to use OM)
+
+
 * to enter machine:
 ```
 docker run -it __HASH__ bash
 ```
+
 * to join running machine
 ```
 # get container id

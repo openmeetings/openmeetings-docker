@@ -16,5 +16,5 @@ chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
 
 service mysql start
 service kurento-media-server start
-service tomcat run
+sudo -u nobody /opt/red5/bin/catalina.sh run
 
