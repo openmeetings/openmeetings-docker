@@ -54,15 +54,11 @@ RUN apt-get install -y libreoffice --no-install-recommends
 
 WORKDIR ${work}
 COPY scripts/*.sh ./
-COPY scripts/tomcat /etc/init.d/
 RUN chmod a+x *.sh
-RUN chmod a+x /etc/init.d/tomcat
-RUN update-rc.d tomcat defaults
-RUN ./ffmpg.sh
 
 RUN echo "mysql-server mysql-server/root_password password ${DB_ROOT_PASS}" | debconf-set-selections
 RUN echo "mysql-server mysql-server/root_password_again password ${DB_ROOT_PASS}" | debconf-set-selections
-RUN apt-get -y install mysql-server mysql-client
+RUN apt-get -y install mysql-server mysql-client ffmpeg
 
 WORKDIR ${work}
 #RUN wget http://www-eu.apache.org/dist/openmeetings/${OM_VERSION}/bin/apache-openmeetings-${OM_VERSION}.tar.gz
