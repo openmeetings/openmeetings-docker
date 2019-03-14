@@ -28,8 +28,8 @@ ENV OM_DB_PASS '12345'
 ENV OM_USER 'om_admin'
 ENV OM_PASS '1Q2w3e4r5t^y'
 ENV work /root/work
-ENV OM_HOME /opt/red5
-ENV MYSQL_J_VER '8.0.12'
+ENV OM_HOME /opt/openmeetings
+ENV MYSQL_J_VER '8.0.15'
 ENV KURENTO_LIST "/etc/apt/sources.list.d/kurento.list"
 
 RUN cat /etc/issue
@@ -43,12 +43,9 @@ RUN apt-get install -y --no-install-recommends software-properties-common unzip 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5AFA7A83
 RUN echo "" > ${KURENTO_LIST}
 RUN echo "# Kurento Media Server - Release packages" >> ${KURENTO_LIST}
-RUN echo "deb [arch=amd64] http://ubuntu.openvidu.io/6.7.1 xenial kms6" >> ${KURENTO_LIST}
+RUN echo "deb [arch=amd64] http://ubuntu.openvidu.io/6.9.0 xenial kms6" >> ${KURENTO_LIST}
 
-RUN add-apt-repository -y ppa:webupd8team/java && apt-get update
-RUN echo 'oracle-java8-installer shared/accepted-oracle-license-v1-1 select true' | debconf-set-selections
-RUN echo 'oracle-java8-installer shared/accepted-oracle-license-v1-1 seen true' | debconf-set-selections
-RUN apt-get install -y oracle-java8-installer kurento-media-server
+RUN apt-get install -y openjdk-8-jdk kurento-media-server
 
 RUN apt-get install -y libreoffice --no-install-recommends
 
