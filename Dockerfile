@@ -32,9 +32,8 @@ ENV OM_HOME /opt/openmeetings
 ENV MYSQL_J_VER '8.0.15'
 ENV KURENTO_LIST "/etc/apt/sources.list.d/kurento.list"
 
-RUN cat /etc/issue
-
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 5AFA7A83 \
+RUN cat /etc/issue \
+  && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 5AFA7A83 \
   && echo "" > ${KURENTO_LIST} \
     && echo "# Kurento Media Server - Release packages" >> ${KURENTO_LIST} \
     && echo "deb [arch=amd64] http://ubuntu.openvidu.io/6.9.0 xenial kms6" >> ${KURENTO_LIST} \
@@ -44,7 +43,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 5AFA7A83 \
   \
   && apt-get update && apt-get install -y --no-install-recommends \
     apt-utils \
-  && apt-get update && apt-get install -y --no-install-recommends \
+  && apt-get install -y --no-install-recommends \
     software-properties-common \
     unzip \
     wget \
@@ -64,12 +63,11 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 5AFA7A83 \
 WORKDIR ${work}
 COPY scripts/*.sh ./
 
-#RUN wget http://www-eu.apache.org/dist/openmeetings/${OM_VERSION}/bin/apache-openmeetings-${OM_VERSION}.tar.gz
 WORKDIR ${OM_HOME}
 RUN wget https://builds.apache.org/view/M-R/view/OpenMeetings/job/openmeetings/lastSuccessfulBuild/artifact/openmeetings-server/target/apache-openmeetings-5.0.0-SNAPSHOT.tar.gz -O apache-openmeetings-${OM_VERSION}.tar.gz \
     && tar -xzf apache-openmeetings-${OM_VERSION}.tar.gz \
     && rm apache-openmeetings-${OM_VERSION}.tar.gz \
-    && wget http://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_J_VER}/mysql-connector-java-${MYSQL_J_VER}.jar -P webapps/openmeetings/WEB-INF/lib \
+    && wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_J_VER}/mysql-connector-java-${MYSQL_J_VER}.jar -P webapps/openmeetings/WEB-INF/lib \
     && chmod a+x ${work}/*.sh \
     && ${work}/om_install.sh \
     && sed -i 's|<policy domain="coder" rights="none" pattern="PS" />|<!--policy domain="coder" rights="none" pattern="PS" />|g; s|<policy domain="coder" rights="none" pattern="XPS" />|<policy domain="coder" rights="none" pattern="XPS" /-->|g' /etc/ImageMagick-6/policy.xml \
