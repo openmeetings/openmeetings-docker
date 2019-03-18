@@ -34,42 +34,46 @@ ENV KURENTO_LIST "/etc/apt/sources.list.d/kurento.list"
 
 RUN cat /etc/issue
 
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends apt-utils
-RUN apt-get install -y --no-install-recommends software-properties-common unzip make build-essential wget ghostscript libgs-dev imagemagick sox sudo
-
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5AFA7A83
-RUN echo "" > ${KURENTO_LIST}
-RUN echo "# Kurento Media Server - Release packages" >> ${KURENTO_LIST}
-RUN echo "deb [arch=amd64] http://ubuntu.openvidu.io/6.9.0 xenial kms6" >> ${KURENTO_LIST}
-
-RUN apt-get install -y openjdk-8-jdk kurento-media-server
-
-RUN apt-get install -y libreoffice --no-install-recommends
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 5AFA7A83 \
+  && echo "" > ${KURENTO_LIST} \
+    && echo "# Kurento Media Server - Release packages" >> ${KURENTO_LIST} \
+    && echo "deb [arch=amd64] http://ubuntu.openvidu.io/6.9.0 xenial kms6" >> ${KURENTO_LIST} \
+    && echo "mysql-server mysql-server/root_password password ${DB_ROOT_PASS}" | debconf-set-selections \
+    && echo "mysql-server mysql-server/root_password_again password ${DB_ROOT_PASS}" | debconf-set-selections \
+    && echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
+  \
+  && apt-get update && apt-get install -y --no-install-recommends \
+    apt-utils \
+  && apt-get update && apt-get install -y --no-install-recommends \
+    software-properties-common \
+    unzip \
+    wget \
+    ghostscript \
+    libgs-dev \
+    imagemagick \
+    sox \
+    sudo \
+    libreoffice \
+    openjdk-8-jdk \
+    kurento-media-server \
+    mysql-server \
+    mysql-client \
+    ffmpeg \
+  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR ${work}
 COPY scripts/*.sh ./
-RUN chmod a+x *.sh
 
-RUN echo "mysql-server mysql-server/root_password password ${DB_ROOT_PASS}" | debconf-set-selections
-RUN echo "mysql-server mysql-server/root_password_again password ${DB_ROOT_PASS}" | debconf-set-selections
-RUN apt-get -y install mysql-server mysql-client ffmpeg
-
-WORKDIR ${work}
 #RUN wget http://www-eu.apache.org/dist/openmeetings/${OM_VERSION}/bin/apache-openmeetings-${OM_VERSION}.tar.gz
-RUN wget https://builds.apache.org/view/M-R/view/OpenMeetings/job/openmeetings/lastSuccessfulBuild/artifact/openmeetings-server/target/apache-openmeetings-5.0.0-SNAPSHOT.tar.gz -O apache-openmeetings-${OM_VERSION}.tar.gz
-
 WORKDIR ${OM_HOME}
-RUN tar -xzf ${work}/apache-openmeetings-${OM_VERSION}.tar.gz
-RUN wget http://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_J_VER}/mysql-connector-java-${MYSQL_J_VER}.jar -P webapps/openmeetings/WEB-INF/lib
-
-RUN ${work}/om_install.sh
-
-RUN sed -i 's|<policy domain="coder" rights="none" pattern="PS" />|<!--policy domain="coder" rights="none" pattern="PS" />|g; s|<policy domain="coder" rights="none" pattern="XPS" />|<policy domain="coder" rights="none" pattern="XPS" /-->|g' /etc/ImageMagick-6/policy.xml
-
-RUN sed -i 's/DAEMON_USER="kurento"/DAEMON_USER="nobody"/g' /etc/default/kurento-media-server
+RUN wget https://builds.apache.org/view/M-R/view/OpenMeetings/job/openmeetings/lastSuccessfulBuild/artifact/openmeetings-server/target/apache-openmeetings-5.0.0-SNAPSHOT.tar.gz -O apache-openmeetings-${OM_VERSION}.tar.gz \
+    && tar -xzf apache-openmeetings-${OM_VERSION}.tar.gz \
+    && rm apache-openmeetings-${OM_VERSION}.tar.gz \
+    && wget http://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_J_VER}/mysql-connector-java-${MYSQL_J_VER}.jar -P webapps/openmeetings/WEB-INF/lib \
+    && chmod a+x ${work}/*.sh \
+    && ${work}/om_install.sh \
+    && sed -i 's|<policy domain="coder" rights="none" pattern="PS" />|<!--policy domain="coder" rights="none" pattern="PS" />|g; s|<policy domain="coder" rights="none" pattern="XPS" />|<policy domain="coder" rights="none" pattern="XPS" /-->|g' /etc/ImageMagick-6/policy.xml \
+    && sed -i 's/DAEMON_USER="kurento"/DAEMON_USER="nobody"/g' /etc/default/kurento-media-server
 
 EXPOSE 5443 8888
 #CMD bash ${work}/om.sh
