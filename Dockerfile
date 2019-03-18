@@ -31,39 +31,48 @@ ENV work /root/work
 ENV OM_HOME /opt/red5
 ENV MYSQL_J_VER '8.0.15'
 
-RUN cat /etc/issue
-
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends apt-utils
-RUN apt-get install -y --no-install-recommends software-properties-common unzip make build-essential wget ghostscript libgs-dev imagemagick sox sudo
-
-RUN add-apt-repository -y ppa:webupd8team/java && apt-get update
-RUN echo 'oracle-java8-installer shared/accepted-oracle-license-v1-1 select true' | debconf-set-selections
-RUN echo 'oracle-java8-installer shared/accepted-oracle-license-v1-1 seen true' | debconf-set-selections
-RUN apt-get install -y oracle-java8-installer
-
-RUN apt-get install -y libreoffice --no-install-recommends
+RUN cat /etc/issue \
+ && echo "mysql-server mysql-server/root_password password ${DB_ROOT_PASS}" | debconf-set-selections \
+    && echo "mysql-server mysql-server/root_password_again password ${DB_ROOT_PASS}" | debconf-set-selections \
+    && echo 'oracle-java8-installer shared/accepted-oracle-license-v1-1 select true' | debconf-set-selections \
+    && echo 'oracle-java8-installer shared/accepted-oracle-license-v1-1 seen true' | debconf-set-selections \
+    && echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
+  \
+  && apt-get update && apt-get install -y --no-install-recommends \
+    apt-utils \
+    software-properties-common \
+  && add-apt-repository -y ppa:webupd8team/java && apt-get update \
+  && apt-get install -y --no-install-recommends \
+    unzip \
+    wget \
+    ghostscript \
+    libgs-dev \
+    imagemagick \
+    sox \
+    sudo \
+    libreoffice \
+    oracle-java8-installer \
+    mysql-server \
+    mysql-client \
+    ffmpeg \
+  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR ${work}
-COPY scripts/* ./
+COPY scripts/*.sh ./
 RUN chmod a+x *.sh
 
-RUN echo "mysql-server mysql-server/root_password password ${DB_ROOT_PASS}" | debconf-set-selections
-RUN echo "mysql-server mysql-server/root_password_again password ${DB_ROOT_PASS}" | debconf-set-selections
-RUN apt-get -y install mysql-server mysql-client ffmpeg
-
-WORKDIR ${work}
-RUN wget http://www-eu.apache.org/dist/openmeetings/${OM_VERSION}/bin/apache-openmeetings-${OM_VERSION}.tar.gz
-
 WORKDIR ${OM_HOME}
-RUN tar -xzf ${work}/apache-openmeetings-${OM_VERSION}.tar.gz
-RUN wget http://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_J_VER}/mysql-connector-java-${MYSQL_J_VER}.jar -P webapps/openmeetings/WEB-INF/lib
-
-RUN ${work}/om_install.sh
-
-RUN sed -i 's|<policy domain="coder" rights="none" pattern="PS" />|<!--policy domain="coder" rights="none" pattern="PS" />|g; s|<policy domain="coder" rights="none" pattern="XPS" />|<policy domain="coder" rights="none" pattern="XPS" /-->|g' /etc/ImageMagick-6/policy.xml
+RUN wget "https://archive.apache.org/dist/openmeetings/${OM_VERSION}/bin/apache-openmeetings-${OM_VERSION}.tar.gz" -O om.tar.gz \
+    && wget "https://archive.apache.org/dist/openmeetings/${OM_VERSION}/bin/apache-openmeetings-${OM_VERSION}.tar.gz.asc" -O om.asc \
+    && export GNUPGHOME="$(mktemp -d)" \
+    && gpg --batch --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys C467526E \
+    && gpg --batch --verify om.asc om.tar.gz \
+    && tar -xzf om.tar.gz \
+    && rm -rf ${GNUPGHOME} om.asc om.tar.gz \
+    && wget "https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_J_VER}/mysql-connector-java-${MYSQL_J_VER}.jar" -P webapps/openmeetings/WEB-INF/lib \
+    && chmod a+x *.sh \
+    && ${work}/om_install.sh \
+    && sed -i 's|<policy domain="coder" rights="none" pattern="PS" />|<!--policy domain="coder" rights="none" pattern="PS" />|g; s|<policy domain="coder" rights="none" pattern="XPS" />|<policy domain="coder" rights="none" pattern="XPS" /-->|g' /etc/ImageMagick-6/policy.xml
 
 EXPOSE 5080 1935
 #CMD bash ${work}/om.sh
