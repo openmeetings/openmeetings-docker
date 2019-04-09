@@ -15,7 +15,7 @@
 FROM ubuntu:18.04
 ENV OM_VER_MAJ='5'
 ENV OM_VER_MIN='0'
-ENV OM_VER_MIC='0'
+ENV OM_VER_MIC='0-M2'
 ENV OM_VERSION="${OM_VER_MAJ}.${OM_VER_MIN}.${OM_VER_MIC}"
 LABEL vendor="Apache OpenMeetings dev team"
 LABEL version="${OM_VERSION}"
@@ -64,7 +64,7 @@ RUN cat /etc/issue \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   \
-  && wget https://builds.apache.org/view/M-R/view/OpenMeetings/job/openmeetings/lastSuccessfulBuild/artifact/openmeetings-server/target/apache-openmeetings-5.0.0-SNAPSHOT.tar.gz -O apache-openmeetings-${OM_VERSION}.tar.gz \
+  && wget https://builds.apache.org/view/M-R/view/OpenMeetings/job/openmeetings/lastSuccessfulBuild/artifact/openmeetings-server/target/apache-openmeetings-${OM_VERSION}-SNAPSHOT.tar.gz -O apache-openmeetings-${OM_VERSION}.tar.gz \
     && tar -xzf apache-openmeetings-${OM_VERSION}.tar.gz \
     && rm apache-openmeetings-${OM_VERSION}.tar.gz \
     && wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_J_VER}/mysql-connector-java-${MYSQL_J_VER}.jar -P webapps/openmeetings/WEB-INF/lib \

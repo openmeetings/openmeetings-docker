@@ -13,22 +13,17 @@
 # limitations under the License.
 # #############################################
 
-echo "OM server of type ${OM_TYPE} will be built"
+echo "OM server of type ${OM_TYPE} will be set-up"
 if [ "${OM_TYPE}" != "min" ]; then
 
 	apt-get update
 	apt-get install -y --no-install-recommends gnupg2 dirmngr
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 5AFA7A83
 
-	if [ "$(lsb_release -cs)" == "xenial" ]; then
-		KURENTO_LIST="/etc/apt/sources.list.d/kurento.list"
-		echo "# Kurento Media Server - Release packages" > ${KURENTO_LIST}
-		echo "deb [arch=amd64] http://ubuntu.openvidu.io/6.9.0 xenial kms6" >> ${KURENTO_LIST}
-	else
-		KURENTO_LIST="/etc/apt/sources.list.d/kurento-dev.list"
-		echo "# Kurento Media Server - DEV packages" > ${KURENTO_LIST}
-		echo "deb [arch=amd64] http://ubuntu.openvidu.io/dev bionic kms6" >> ${KURENTO_LIST}
-	fi
+	KURENTO_LIST="/etc/apt/sources.list.d/kurento-dev.list"
+	echo "# Kurento Media Server - DEV packages" > ${KURENTO_LIST}
+	echo "deb [arch=amd64] http://ubuntu.openvidu.io/6.10.0 bionic kms6" >> ${KURENTO_LIST}
+
 	echo "mysql-server mysql-server/root_password password ${DB_ROOT_PASS}" | debconf-set-selections
 	echo "mysql-server mysql-server/root_password_again password ${DB_ROOT_PASS}" | debconf-set-selections
 	echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
