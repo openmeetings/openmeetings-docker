@@ -1,6 +1,6 @@
 # openmeetings-docker
 
-Docker image for OM (version 5.0.0-M2, WebRTC *SEMI-STABLE*)
+Docker image for OM (version 5.0.0-M1, WebRTC *SEMI-STABLE*)
 
 Please use _releases_
 
@@ -27,14 +27,14 @@ docker rm $(docker ps -a -q) ; docker rmi -f $(docker images -q)
 This version has no DB and Kurento server, both should be passed via environment
 See below
 ```
-docker build -t om-server-min -f Dockerfile .
+docker build -t om-server-min .
 docker login -u openmeetings -p <HASHED_PWD> openmeetings-docker-images.bintray.io
 docker tag om-server-min openmeetings-docker-images.bintray.io/server-min
 docker push openmeetings-docker-images.bintray.io/server-min
 ```
 ### to build full: 
 ```
-docker build -t om-server-full --build-arg BUILD_TYPE=full -f Dockerfile .
+docker build -t om-server-full --build-arg BUILD_TYPE=full .
 docker login -u openmeetings -p <HASHED_PWD> openmeetings-docker-images.bintray.io
 docker tag om-server-full openmeetings-docker-images.bintray.io/server-full
 docker push openmeetings-docker-images.bintray.io/server-full
