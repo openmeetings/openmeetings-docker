@@ -41,7 +41,7 @@ docker push openmeetings-docker-images.bintray.io/server-full
 ```
 ### to run pre-build (full) OM:
 ```
-docker run -i --rm --name om-server-full --expose=5443,8888 -p 5443:5443 -p 8888:8888 openmeetings-docker-images.bintray.io/server-full:latest
+docker run -i --rm --name om-server-full --expose=5443 --expose=8888 -p 5443:5443 -p 8888:8888 openmeetings-docker-images.bintray.io/server-full:latest
 ```
 
 ### to run (full) OM (locally built):
