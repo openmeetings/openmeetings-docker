@@ -15,7 +15,7 @@
 FROM ubuntu:18.04
 ENV OM_VER_MAJ='5'
 ENV OM_VER_MIN='0'
-ENV OM_VER_MIC='0-M1'
+ENV OM_VER_MIC='0-M2'
 ENV OM_VERSION="${OM_VER_MAJ}.${OM_VER_MIN}.${OM_VER_MIC}"
 LABEL vendor="Apache OpenMeetings dev team"
 LABEL version="${OM_VERSION}"
@@ -38,7 +38,7 @@ ENV OM_KURENTO_WS_URL="ws://127.0.0.1:8888/kurento"
 ENV OM_DATA_DIR="/opt/omdata"
 ENV work=/opt
 ENV OM_HOME=/opt/openmeetings
-ENV MYSQL_J_VER="8.0.15"
+ENV MYSQL_J_VER="8.0.17"
 ENV DB2_J_VER="11.1.4.4"
 ENV PORTS=5443
 
@@ -61,27 +61,27 @@ RUN cat /etc/issue \
     sox \
     sudo \
     libreoffice \
-    openjdk-8-jdk \
+    openjdk-11-jre \
     ffmpeg \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   \
-  && wget "https://archive.apache.org/dist/openmeetings/${OM_VERSION}/bin/apache-openmeetings-${OM_VERSION}.tar.gz" -O om.tar.gz \
-    && wget "https://archive.apache.org/dist/openmeetings/${OM_VERSION}/bin/apache-openmeetings-${OM_VERSION}.tar.gz.asc" -O om.asc \
-    && export GNUPGHOME="$(mktemp -d)" \
-    && for server in hkp://ipv4.pool.sks-keyservers.net:80 \
+  && wget "https://archive.apache.org/dist/openmeetings/${OM_VERSION}/bin/apache-openmeetings-${OM_VERSION}.tar.gz" -O ${work}/om.tar.gz \
+  && wget "https://archive.apache.org/dist/openmeetings/${OM_VERSION}/bin/apache-openmeetings-${OM_VERSION}.tar.gz.asc" -O ${work}/om.asc \
+  && export GNUPGHOME="$(mktemp -d)" \
+  && for server in hkp://ipv4.pool.sks-keyservers.net:80 \
                      hkp://ha.pool.sks-keyservers.net:80 \
                      hkp://pgp.mit.edu:80 \
                      hkp://keyserver.pgp.com:80 \
     ; do \
       gpg --keyserver "$server" --recv-keys C467526E && break || echo "Trying new server..." \
     ; done \
-    && gpg --batch --verify om.asc om.tar.gz \
-    && tar -xzf om.tar.gz \
-    && rm -rf ${GNUPGHOME} om.asc om.tar.gz \
-    && wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_J_VER}/mysql-connector-java-${MYSQL_J_VER}.jar -P webapps/openmeetings/WEB-INF/lib \
-    && wget https://repo1.maven.org/maven2/com/ibm/db2/jcc/${DB2_J_VER}/jcc-${DB2_J_VER}.jar -P webapps/openmeetings/WEB-INF/lib \
-    && sed -i 's|<policy domain="coder" rights="none" pattern="PS" />|<!--policy domain="coder" rights="none" pattern="PS" />|g; s|<policy domain="coder" rights="none" pattern="XPS" />|<policy domain="coder" rights="none" pattern="XPS" /-->|g' /etc/ImageMagick-6/policy.xml 
+  && gpg --batch --verify ${work}/om.asc ${work}/om.tar.gz \
+  && tar -xzf ${work}/om.tar.gz --strip-components=1 -C ${OM_HOME}/ \
+  && rm -rf ${GNUPGHOME} ${work}/om.asc ${work}/om.tar.gz \
+  && wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_J_VER}/mysql-connector-java-${MYSQL_J_VER}.jar -P ${OM_HOME}/webapps/openmeetings/WEB-INF/lib \
+  && wget https://repo1.maven.org/maven2/com/ibm/db2/jcc/${DB2_J_VER}/jcc-${DB2_J_VER}.jar -P ${OM_HOME}/webapps/openmeetings/WEB-INF/lib \
+  && sed -i 's|<policy domain="coder" rights="none" pattern="PS" />|<!--policy domain="coder" rights="none" pattern="PS" />|g; s|<policy domain="coder" rights="none" pattern="XPS" />|<policy domain="coder" rights="none" pattern="XPS" /-->|g' /etc/ImageMagick-6/policy.xml 
 
 WORKDIR ${work}
 COPY scripts/*.sh ./

@@ -20,9 +20,9 @@ if [ "${OM_TYPE}" != "min" ]; then
 	apt-get install -y --no-install-recommends gnupg2 dirmngr
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 5AFA7A83
 
-	KURENTO_LIST="/etc/apt/sources.list.d/kurento-dev.list"
-	echo "# Kurento Media Server - DEV packages" > ${KURENTO_LIST}
-	echo "deb [arch=amd64] http://ubuntu.openvidu.io/6.10.0 bionic kms6" >> ${KURENTO_LIST}
+	KURENTO_LIST="/etc/apt/sources.list.d/kurento.list"
+	echo "# Kurento Media Server" > ${KURENTO_LIST}
+	echo "deb [arch=amd64] http://ubuntu.openvidu.io/6.11.0 bionic kms6" >> ${KURENTO_LIST}
 
 	echo "mysql-server mysql-server/root_password password ${DB_ROOT_PASS}" | debconf-set-selections
 	echo "mysql-server mysql-server/root_password_again password ${DB_ROOT_PASS}" | debconf-set-selections
@@ -44,6 +44,8 @@ if [ "${OM_TYPE}" != "min" ]; then
 	mysql -u root -p${DB_ROOT_PASS} -se "grant all privileges on ${OM_DB_NAME}.* to '${OM_DB_USER}'@'localhost'"
 
 	cd ${OM_HOME}
+	pwd
+	ls -la
 	sudo -u ${DAEMON_USER} ./admin.sh -v -i -tz Europe/Berlin -email your.email@gmail.com -group group \
 		-user ${OM_USER} --password ${OM_PASS} \
 		--db-type mysql --db-host localhost --db-name ${OM_DB_NAME} \
