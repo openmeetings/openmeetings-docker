@@ -43,6 +43,15 @@ if [ "${OM_TYPE}" == "min" ]; then
 else
 	service kurento-media-server start
 fi
+if [ -n "${TURN_URL}" ]; then
+	sed -i "s|p:turnUrl=\"\"|p:turnUrl=\"${TURN_URL}\"|g" ${CLASSES_HOME}/applicationContext.xml
+fi
+if [ -n "${TURN_USER}" ]; then
+	sed -i "s|p:turnUser=\"\"|p:turnUser=\"${TURN_USER}\"|g" ${CLASSES_HOME}/applicationContext.xml
+fi
+if [ -n "${TURN_PASS}" ]; then
+	sed -i "s|p:turnSecret=\"\"|p:turnSecret=\"${TURN_PASS}\"|g" ${CLASSES_HOME}/applicationContext.xml
+fi
 cd ${OM_HOME}
 sudo -u ${DAEMON_USER} ${OM_HOME}/bin/catalina.sh run
 
