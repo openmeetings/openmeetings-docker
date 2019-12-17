@@ -15,7 +15,7 @@
 FROM ubuntu:16.04
 ENV OM_VER_MAJ '4'
 ENV OM_VER_MIN '0'
-ENV OM_VER_MIC '8'
+ENV OM_VER_MIC '9'
 ENV OM_VERSION="${OM_VER_MAJ}.${OM_VER_MIN}.${OM_VER_MIC}"
 LABEL vendor="Apache OpenMeetings dev team"
 LABEL version="${OM_VERSION}"
@@ -37,8 +37,8 @@ ENV OM_DB_PASS="12345"
 ENV OM_DATA_DIR="/opt/omdata"
 ENV work=/opt
 ENV OM_HOME=/opt/openmeetings
-ENV MYSQL_J_VER="8.0.15"
-ENV DB2_J_VER="11.1.4.4"
+ENV MYSQL_J_VER="8.0.18"
+ENV DB2_J_VER="11.5.0.0"
 ENV PORTS=5443
 
 ENV FFMPEG ${work}/ffmpeg
