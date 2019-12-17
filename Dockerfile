@@ -15,7 +15,7 @@
 FROM ubuntu:16.04
 ENV OM_VER_MAJ '4'
 ENV OM_VER_MIN '0'
-ENV OM_VER_MIC '9'
+ENV OM_VER_MIC '10'
 ENV OM_VERSION="${OM_VER_MAJ}.${OM_VER_MIN}.${OM_VER_MIC}"
 LABEL vendor="Apache OpenMeetings dev team"
 LABEL version="${OM_VERSION}"
@@ -74,7 +74,7 @@ RUN cat /etc/issue \
   && wget "https://archive.apache.org/dist/openmeetings/${OM_VERSION}/bin/apache-openmeetings-${OM_VERSION}.tar.gz" -O om.tar.gz \
     && wget "https://archive.apache.org/dist/openmeetings/${OM_VERSION}/bin/apache-openmeetings-${OM_VERSION}.tar.gz.asc" -O om.asc \
     && export GNUPGHOME="$(mktemp -d)" \
-    && gpg --batch --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys C467526E \
+    && gpg --batch --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys 8456901E \
     && gpg --batch --verify om.asc om.tar.gz \
     && tar -xzf om.tar.gz \
     && rm -rf ${GNUPGHOME} om.asc om.tar.gz \
