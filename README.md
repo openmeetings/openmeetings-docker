@@ -1,6 +1,6 @@
 # openmeetings-docker
 
-Docker image for OM (version 5.0.0-M2, WebRTC *SEMI-STABLE*)
+Docker image for OM (version 5.0.0-M3, WebRTC *SEMI-STABLE*)
 
 Please use _releases_
 
@@ -23,25 +23,34 @@ Please use _releases_
 docker rm $(docker ps -a -q) ; docker rmi -f $(docker images -q)
 ```
 
+### Authentication
+
+please contact INFRA in case you don't have permissions to push to
+https://hub.docker.com/repository/docker/apache/openmeetings/general
+
+```
+docker login --username solomax666
+```
+AUTH token as password
+
+
 ### to build minimized: 
 This version has no DB and Kurento server, both should be passed via environment
 See below
 ```
-docker build -t om-server-min .
-docker login -u openmeetings -p <HASHED_PWD> openmeetings-docker-images.bintray.io
-docker tag om-server-min openmeetings-docker-images.bintray.io/server-min
-docker push openmeetings-docker-images.bintray.io/server-min
+docker build -t apache/openmeetings:min-5.0.0-M3 .
+docker push apache/openmeetings:min-5.0.0-M3
 ```
+
 ### to build full: 
 ```
-docker build -t om-server-full --build-arg BUILD_TYPE=full .
-docker login -u openmeetings -p <HASHED_PWD> openmeetings-docker-images.bintray.io
-docker tag om-server-full openmeetings-docker-images.bintray.io/server-full
-docker push openmeetings-docker-images.bintray.io/server-full
+docker build -t apache/openmeetings:5.0.0-M3 --build-arg BUILD_TYPE=full .
+docker push apache/openmeetings:5.0.0-M3
 ```
+
 ### to run pre-build (full) OM:
 ```
-docker run -i --rm --name om-server-full --expose=5443 --expose=8888 -p 5443:5443 -p 8888:8888 openmeetings-docker-images.bintray.io/server-full:latest
+docker run -i --rm --name om-server-full --expose=5443 --expose=8888 -p 5443:5443 -p 8888:8888 apache/openmeetings:5.0.0-M3
 ```
 
 ### to run (full) OM (locally built):
