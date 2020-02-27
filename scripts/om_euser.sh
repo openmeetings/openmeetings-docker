@@ -24,7 +24,8 @@ if [ "${OM_TYPE}" != "min" ]; then
 	if [ ! -d "/var/run/mysqld" ]; then
 		mkdir /var/run/mysqld
 	fi
-
+	
+	usermod -d /var/lib/mysql mysql
 	chown -R mysql:mysql /var/lib/mysql /var/run/mysqld && service mysql restart
 fi
 
