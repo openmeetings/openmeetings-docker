@@ -25,6 +25,9 @@ if [ "${OM_TYPE}" != "min" ]; then
 		mkdir /var/run/mysqld
 	fi
 	
+	if [ -f "/var/run/mysqld/mysqld.sock.lock" ]; then
+		rm -rf /var/run/mysqld/mysqld.sock.lock
+	fi
 	usermod -d /var/lib/mysql mysql
 	chown -R mysql:mysql /var/lib/mysql /var/run/mysqld && service mysql restart
 fi
