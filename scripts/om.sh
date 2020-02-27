@@ -15,8 +15,8 @@
 
 . ${work}/om_euser.sh
 echo "OM server of type ${OM_TYPE} will be run"
+CLASSES_HOME=${OM_HOME}/webapps/openmeetings/WEB-INF/classes
 if [ "${OM_TYPE}" == "min" ]; then
-	CLASSES_HOME=${OM_HOME}/webapps/openmeetings/WEB-INF/classes
 	DB_CFG_HOME=${CLASSES_HOME}/META-INF
 	cp ${DB_CFG_HOME}/${OM_DB_TYPE}_persistence.xml ${DB_CFG_HOME}/persistence.xml
 	case ${OM_DB_TYPE} in
