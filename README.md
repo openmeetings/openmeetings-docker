@@ -15,6 +15,14 @@ Please use _releases_
 |OM admin user|`om_admin`|
 |OM admin user password|`1Q2w3e4r5t^y`|
 
+## USEFUL PARAMETERS:
+
+|Env Variable|Description|
+|-----------|-----|
+|`TURN_URL`| Turn server URL |
+|`TURN_USER`| Turn server user |
+|`TURN_PASS`| Turn server user password |
+
 
 ## TIPS:
 
