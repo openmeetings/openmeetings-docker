@@ -27,7 +27,7 @@ Please use _releases_
 
 ### to run (full) OM:
 ```
-docker run -i --rm --expose=5443 --expose=8888 -p 5443:5443 -p 8888:8888 apache/openmeetings:5.0.0-M3
+docker run -i --rm --expose=5443 --expose=8888 -p 5443:5443 -p 8888:8888 apache/openmeetings:5.0.0-M3.1
 ```
 
 ### to run (mini) OM:
