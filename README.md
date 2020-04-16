@@ -30,16 +30,27 @@ Please use _releases_
 docker run -i --rm --expose=5443 --expose=8888 -p 5443:5443 -p 8888:8888 apache/openmeetings:5.0.0-M3.1
 ```
 
-### to run (mini) OM:
+### to run mini OM with KMS (Docker) on same HOST machine:
+#### 1. Run KMS (Docker)
 ```
-docker run -p 5443:5443 \
-  -e OM_KURENTO_WS_URL="ws://EXT_IP:8888/kurento" \
-  -e OM_DB_HOST=EXT_IP \
-  -e OM_DB_USER=db_user \
-  -e OM_DB_PASS=secret_pass \
-  --mount type=bind,source=/opt/omdata,target=/opt/omdata \
-  -it apache/openmeetings:min-5.0.0-M3
-
+docker run --name kms -d --network=host \
+  --mount type=bind,source=/opt/omdata,target=/opt/openmeetings/webapps/openmeetings/data \
+  kurento/kurento-media-server
+```
+#### 2. Run OM5-Mini
+```
+docker run --name om5-mini -d --network=host\
+  -e OM_USER={admin_username} \
+  -e OM_PASS={admin_pass} \
+  -e OM_KURENTO_WS_URL="ws://localhost:8888/kurento" \
+  -e OM_DB_HOST={DB_HOST} \
+  -e OM_DB_PORT={DB_PORT} \
+  -e OM_DB_USER={DB_OWNER} \
+  -e OM_DB_NAME={DB_NAME} \
+  -e OM_DB_TYPE={DB_TYPE} \
+  -e OM_DB_PASS={DB_PASS} \
+  --mount type=bind,source=/opt/omdata,target=/opt/openmeetings/webapps/openmeetings/data \
+  apache/openmeetings:min-5.0.0-M3
 ```
 > Please Specify `TURN*` parameters in case users from other networks are expected
 
