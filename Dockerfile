@@ -44,6 +44,7 @@ ENV OM_HOME=/opt/openmeetings
 ENV MYSQL_J_VER="8.0.19"
 ENV DB2_J_VER="11.5.0.0"
 ENV PORTS=5443
+ENV SERVER_TZ=UTC
 
 WORKDIR ${OM_HOME}
 RUN cat /etc/issue \
