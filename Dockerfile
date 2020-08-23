@@ -88,6 +88,7 @@ RUN cat /etc/issue \
 #      gpg --keyserver "$server" --recv-keys 8456901E && break || echo "Trying new server..." \
 #    ; done \
 #  && gpg --batch --verify ${work}/om.asc ${work}/om.tar.gz \
+#  && tar -xzf ${work}/om.tar.gz --strip-components=1 -C ${OM_HOME}/ \
 #  && rm -rf ${GNUPGHOME} ${work}/om.asc ${work}/om.tar.gz \
 
 WORKDIR ${work}
