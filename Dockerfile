@@ -14,8 +14,8 @@
 
 FROM ubuntu:18.04
 ENV OM_VER_MAJ='5'
-ENV OM_VER_MIN='0'
-ENV OM_VER_MIC='0-M5'
+ENV OM_VER_MIN='1'
+ENV OM_VER_MIC='0'
 ENV OM_VERSION="${OM_VER_MAJ}.${OM_VER_MIN}.${OM_VER_MIC}"
 LABEL vendor="Apache OpenMeetings dev team"
 LABEL version="${OM_VERSION}"
@@ -41,8 +41,8 @@ ENV TURN_PASS=""
 ENV OM_DATA_DIR="/opt/omdata"
 ENV work=/opt
 ENV OM_HOME=/opt/openmeetings
-ENV MYSQL_J_VER="8.0.19"
-ENV DB2_J_VER="11.5.0.0"
+ENV MYSQL_J_VER="8.0.21"
+ENV DB2_J_VER="11.5.4.0"
 ENV PORTS=5443
 ENV SERVER_TZ=UTC
 
