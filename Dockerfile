@@ -70,7 +70,7 @@ RUN cat /etc/issue \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   \
-  && wget https://builds.apache.org/view/M-R/view/OpenMeetings/job/openmeetings/lastSuccessfulBuild/artifact/openmeetings-server/target/apache-openmeetings-${OM_VERSION}-SNAPSHOT.tar.gz -O ${work}/om.tar.gz \
+  && wget https://ci-builds.apache.org/job/OpenMeetings/job/openmeetings/lastSuccessfulBuild/artifact/openmeetings-server/target/apache-openmeetings-${OM_VERSION}-SNAPSHOT.tar.gz -O ${work}/om.tar.gz \
   && tar -xzf ${work}/om.tar.gz --strip-components=1 -C ${OM_HOME}/ \
   && rm -rf ${work}/om.tar.gz \
   && wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_J_VER}/mysql-connector-java-${MYSQL_J_VER}.jar -P ${OM_HOME}/webapps/openmeetings/WEB-INF/lib \
