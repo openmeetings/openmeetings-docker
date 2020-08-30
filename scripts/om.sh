@@ -42,6 +42,7 @@ if [ "${OM_TYPE}" == "min" ]; then
 	export CATALINA_OPTS="-DDATA_DIR=${OM_DATA_DIR}"
 else
 	export GST_REGISTRY=/tmp/.gstcache
+	sudo ln -nfs /usr/lib/x86_64-linux-gnu/libopenh264.so.4 /usr/lib/x86_64-linux-gnu/libopenh264.so.0
 	service kurento-media-server start
 fi
 if [ -n "${TURN_URL}" ]; then
