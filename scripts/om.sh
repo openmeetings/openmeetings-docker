@@ -41,8 +41,7 @@ if [ "${OM_TYPE}" == "min" ]; then
 
 	export CATALINA_OPTS="-DDATA_DIR=${OM_DATA_DIR}"
 else
-	mkdir -p /nonexistent/.cache/gstreamer-1.5/
-	chown nobody /nonexistent/.cache/gstreamer-1.5/
+	export GST_REGISTRY=/tmp/.gstcache
 	service kurento-media-server start
 fi
 if [ -n "${TURN_URL}" ]; then
