@@ -1,8 +1,7 @@
 # openmeetings-docker
 
-Docker image for OM (version 5.0.0-M4, WebRTC *SEMI-STABLE*)
+Docker image for OM (version 5.0.0, WebRTC)
 
-Please use _releases_
 
 ### CREDENTIALS:
 
@@ -27,7 +26,7 @@ Please use _releases_
 
 ### to run (full) OM:
 ```
-docker run -i --rm --expose=5443 --expose=8888 -p 5443:5443 -p 8888:8888 apache/openmeetings:5.0.0-M4
+docker run -i --rm --expose=5443 --expose=8888 -p 5443:5443 -p 8888:8888 apache/openmeetings:5.0.0
 ```
 
 ### to run (mini) OM:
@@ -38,7 +37,7 @@ docker run -p 5443:5443 \
   -e OM_DB_USER=db_user \
   -e OM_DB_PASS=secret_pass \
   --mount type=bind,source=/opt/omdata,target=/opt/omdata \
-  -it apache/openmeetings:min-5.0.0-M4
+  -it apache/openmeetings:min-5.0.0
 
 ```
 > Please Specify `TURN*` parameters in case users from other networks are expected
@@ -72,14 +71,14 @@ AUTH token as password
 This version has no DB and Kurento server, both should be passed via environment
 See below
 ```
-docker build -t apache/openmeetings:min-5.0.0-M4 .
-docker push apache/openmeetings:min-5.0.0-M4
+docker build -t apache/openmeetings:min-5.0.0 .
+docker push apache/openmeetings:min-5.0.0
 ```
 
 ### to build full: 
 ```
-docker build -t apache/openmeetings:5.0.0-M4 --build-arg BUILD_TYPE=full .
-docker push apache/openmeetings:5.0.0-M4
+docker build -t apache/openmeetings:5.0.0 --build-arg BUILD_TYPE=full .
+docker push apache/openmeetings:5.0.0
 ```
 
 ### to run (full) OM (locally built):
@@ -105,3 +104,4 @@ docker exec -it [container-id] bash
 ```
 docker stop $(docker ps -aq)
 ```
+
