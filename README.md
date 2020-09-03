@@ -35,19 +35,19 @@ AUTH token as password
 This version has no DB, it should be passed via environment
 See below
 ```
-docker build -t apache/openmeetings:min-4.0.10 .
-docker push apache/openmeetings:min-4.0.10
+docker build -t apache/openmeetings:min-4.0.11 .
+docker push apache/openmeetings:min-4.0.11
 ```
 
 ### to build full: 
 ```
-docker build -t apache/openmeetings:4.0.10 --build-arg BUILD_TYPE=full .
-docker push apache/openmeetings:4.0.10
+docker build -t apache/openmeetings:4.0.11 --build-arg BUILD_TYPE=full .
+docker push apache/openmeetings:4.0.11
 ```
 
 ### to run pre-build (full) OM:
 ```
-docker run -i --rm --name om-server-full --expose=5443,8888 -p 5443:5443 -p 8888:8888 apache/openmeetings:4.0.10
+docker run -i --rm --name om-server-full --expose=5443,8888 -p 5443:5443 -p 8888:8888 apache/openmeetings:4.0.11
 ```
 
 ### to run (full) OM (locally built):
