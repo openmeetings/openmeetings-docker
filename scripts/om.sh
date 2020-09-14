@@ -35,6 +35,7 @@ if [ "${OM_TYPE}" == "min" ]; then
 	esac
 	sed -i "s/Username=/Username=${OM_DB_USER}/g; s/Password=/Password=${OM_DB_PASS}/g" ${DB_CFG_HOME}/persistence.xml
 	if [ ! -d "${OM_DATA_DIR}" ]; then
+	  echo "Make data dir ${OM_DATA_DIR}"
 		mkdir "${OM_DATA_DIR}"
 	fi
 	sed -i "s|ws://127.0.0.1:8888/kurento|${OM_KURENTO_WS_URL}|g" ${CLASSES_HOME}/applicationContext.xml
@@ -55,5 +56,5 @@ if [ -n "${TURN_PASS}" ]; then
 	sed -i "s|p:turnSecret=\"\"|p:turnSecret=\"${TURN_PASS}\"|g" ${CLASSES_HOME}/applicationContext.xml
 fi
 cd ${OM_HOME}
-sudo -u ${DAEMON_USER} ${OM_HOME}/bin/catalina.sh run
+sudo --preserve-env=CATALINA_OPTS -u ${DAEMON_USER} ${OM_HOME}/bin/catalina.sh run
 
