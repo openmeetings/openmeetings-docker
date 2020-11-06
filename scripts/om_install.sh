@@ -22,7 +22,7 @@ if [ "${OM_TYPE}" != "min" ]; then
 
 	KURENTO_LIST="/etc/apt/sources.list.d/kurento.list"
 	echo "# Kurento Media Server" > ${KURENTO_LIST}
-	echo "deb [arch=amd64] http://ubuntu.openvidu.io/6.14.0 bionic kms6" >> ${KURENTO_LIST}
+	echo "deb [arch=amd64] http://ubuntu.openvidu.io/6.15.0 bionic kms6" >> ${KURENTO_LIST}
 
 	echo "mysql-server mysql-server/root_password password ${DB_ROOT_PASS}" | debconf-set-selections
 	echo "mysql-server mysql-server/root_password_again password ${DB_ROOT_PASS}" | debconf-set-selections
@@ -51,4 +51,6 @@ if [ "${OM_TYPE}" != "min" ]; then
 		--db-type mysql --db-host localhost --db-name ${OM_DB_NAME} \
 		--db-user ${OM_DB_USER} --db-pass ${OM_DB_PASS}
 fi
+
+echo "session required pam_limits.so" >> /etc/pam.d/common-session
 

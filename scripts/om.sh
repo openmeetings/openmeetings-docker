@@ -55,5 +55,7 @@ fi
 if [ -n "${TURN_PASS}" ]; then
 	sed -i "s|kurento.turn.secret=|kurento.turn.secret=${TURN_PASS}|g" ${CLASSES_HOME}/openmeetings.properties
 fi
+echo Current max open files is $(su nobody --shell /bin/bash --command "ulimit -n")
 cd ${OM_HOME}
 sudo --preserve-env=CATALINA_OPTS -u ${DAEMON_USER} ${OM_HOME}/bin/catalina.sh run
+

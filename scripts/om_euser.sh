@@ -32,3 +32,6 @@ if [ "${OM_TYPE}" != "min" ]; then
 	chown -R mysql:mysql /var/lib/mysql /var/run/mysqld && service mysql restart
 fi
 
+echo "${DAEMON_USER}          hard     nofile          16384" >> /etc/security/limits.conf
+echo "${DAEMON_USER}          soft     nofile          16384" >> /etc/security/limits.conf
+

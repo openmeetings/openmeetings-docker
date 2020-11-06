@@ -83,7 +83,7 @@ docker push apache/openmeetings:5.0.1
 
 ### to run (full) OM (locally built):
 ```
-docker run --expose=8888 -p 5443:5443 -p 8888:8888 -e OM_TYPE=full -it om-server-full
+docker run --expose=8888 -p 5443:5443 -p 8888:8888 -e OM_TYPE=full -it [container-id]
 
 ```
 
