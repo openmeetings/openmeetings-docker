@@ -26,7 +26,7 @@ Docker image for OM (version 5.1.0, WebRTC)
 
 ### to run (full) OM:
 ```
-docker run -i --rm --expose=5443 --expose=8888 -p 5443:5443 -p 8888:8888 apache/openmeetings:5.1.0
+docker run -i --rm --network host apache/openmeetings:5.1.0
 ```
 
 ### to run (mini) OM:
@@ -83,7 +83,7 @@ docker push apache/openmeetings:5.1.0
 
 ### to run (full) OM (locally built):
 ```
-docker run --expose=8888 -p 5443:5443 -p 8888:8888 -e OM_TYPE=full -it [container-id]
+docker run --network host -e OM_TYPE=full -it [container-id]
 
 ```
 
