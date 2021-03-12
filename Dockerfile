@@ -14,7 +14,7 @@
 
 FROM ubuntu:18.04
 ENV OM_VER_MAJ='6'
-ENV OM_VER_MIN='0'
+ENV OM_VER_MIN='1'
 ENV OM_VER_MIC='0'
 ENV OM_VERSION="${OM_VER_MAJ}.${OM_VER_MIN}.${OM_VER_MIC}"
 LABEL vendor="Apache OpenMeetings dev team"
