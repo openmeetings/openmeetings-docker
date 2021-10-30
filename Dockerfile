@@ -78,7 +78,7 @@ RUN cat /etc/issue \
                      hkp://pgp.mit.edu:80 \
                      hkp://keyserver.pgp.com:80 \
     ; do \
-      gpg --keyserver "$server" --recv-keys 8456901E && break || echo "Trying new server..." \
+      gpg --keyserver "$server" --recv-keys 93A30395 && break || echo "Trying new server..." \
     ; done \
   && gpg --batch --verify ${work}/om.asc ${work}/om.tar.gz \
   && tar -xzf ${work}/om.tar.gz --strip-components=1 -C ${OM_HOME}/ \
