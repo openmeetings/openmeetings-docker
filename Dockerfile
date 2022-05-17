@@ -59,7 +59,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     sox \
     sudo \
     libreoffice \
-    openjdk-11-jre \
+    openjdk-17-jre \
     ffmpeg \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
