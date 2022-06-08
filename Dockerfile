@@ -58,8 +58,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     imagemagick \
     sox \
     sudo \
+    openjdk-17-jre
+
+RUN apt-get install -y --no-install-recommends \
     libreoffice \
-    openjdk-17-jre \
     ffmpeg \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
