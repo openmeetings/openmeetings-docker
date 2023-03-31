@@ -12,7 +12,7 @@
 # limitations under the License.
 # #############################################
 
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 ENV OM_VER_MAJ='7'
 ENV OM_VER_MIN='1'
 ENV OM_VER_MIC='0'
