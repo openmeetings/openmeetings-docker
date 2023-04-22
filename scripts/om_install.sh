@@ -46,6 +46,12 @@ if [ "${OM_TYPE}" != "min" ]; then
 	cd ${OM_HOME}
 	pwd
 	ls -la
+
+	CLASSES_HOME=${OM_HOME}/webapps/openmeetings/WEB-INF/classes
+	DB_CFG_HOME=${CLASSES_HOME}/META-INF
+	sed -i "s|useSSL=false\&amp;|useSSL=false\&amp;allowPublicKeyRetrieval=true\&amp;|g" ${DB_CFG_HOME}/mysql_persistence.xml
+
+
 	sudo -u ${DAEMON_USER} ./admin.sh -v -i -tz Europe/Berlin -email your.email@gmail.com -group group \
 		-user ${OM_USER} --password ${OM_PASS} \
 		--db-type mysql --db-host localhost --db-name ${OM_DB_NAME} \
