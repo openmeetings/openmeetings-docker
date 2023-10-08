@@ -79,6 +79,7 @@ RUN apt-get install -y --no-install-recommends \
 #  && for server in hkp://ipv4.pool.sks-keyservers.net:80 \
 #                     hkp://ha.pool.sks-keyservers.net:80 \
 #                     hkp://pgp.mit.edu:80 \
+#                     hkp://keyserver.ubuntu.com:80 \
 #                     hkp://keyserver.pgp.com:80 \
 #    ; do \
 #      gpg --keyserver "$server" --recv-keys 8456901E && break || echo "Trying new server..." \

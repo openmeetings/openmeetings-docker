@@ -57,5 +57,5 @@ if [ -n "${TURN_PASS}" ]; then
 fi
 echo Current max open files is $(su nobody --shell /bin/bash --command "ulimit -n")
 cd ${OM_HOME}
-sudo --preserve-env=CATALINA_OPTS -u ${DAEMON_USER} ${OM_HOME}/bin/catalina.sh run
+sudo --preserve-env=CATALINA_OPTS -u ${DAEMON_USER} HOME=/tmp ${OM_HOME}/bin/catalina.sh run
 
