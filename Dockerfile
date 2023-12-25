@@ -13,8 +13,8 @@
 # #############################################
 
 FROM ubuntu:20.04
-ENV OM_VER_MAJ='7'
-ENV OM_VER_MIN='2'
+ENV OM_VER_MAJ='8'
+ENV OM_VER_MIN='0'
 ENV OM_VER_MIC='0'
 ENV OM_VERSION="${OM_VER_MAJ}.${OM_VER_MIN}.${OM_VER_MIC}"
 LABEL vendor="Apache OpenMeetings dev team"
