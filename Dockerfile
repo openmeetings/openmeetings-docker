@@ -40,7 +40,7 @@ ENV OM_DATA_DIR="/opt/omdata"
 ENV work=/opt
 ENV OM_HOME=/opt/openmeetings
 ENV MYSQL_J_VER="8.2.0"
-ENV DB2_J_VER="11.5.8.0"
+ENV DB2_J_VER="11.5.9.0"
 ENV PORTS=5443
 ENV SERVER_TZ=UTC
 
