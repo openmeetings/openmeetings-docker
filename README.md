@@ -42,6 +42,17 @@ docker run -p 5443:5443 \
 ```
 > Please Specify `TURN*` parameters in case users from other networks are expected
 
+Please **NOTE** DB password will be inserted into `XML` file so all xml entities should be correctly escaped 
+
+here are some good examples:
+
+```
+-e OM_DB_PASS=12345
+
+-e "OM_DB_PASS=Good password with whitespaces"
+
+-e 'OM_DB_PASS=G00d&amp;Str0ngPWD_with&gt;Sign'
+```
 
 ### To access OM
 
