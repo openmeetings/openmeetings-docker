@@ -16,6 +16,7 @@
 . ${work}/om_euser.sh
 echo "OM server of type ${OM_TYPE} will be run"
 CLASSES_HOME=${OM_HOME}/webapps/openmeetings/WEB-INF/classes
+export JAVA_OPTS="-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom -Dopenjpa.serialization.class.blacklist=* -Dopenjpa.serialization.class.whitelist=[B,java.util,org.apache.openjpa,org.apache.openmeetings.db.entity"
 if [ "${OM_TYPE}" == "min" ]; then
 	DB_CFG_HOME=${CLASSES_HOME}/META-INF
 	cp ${DB_CFG_HOME}/${OM_DB_TYPE}_persistence.xml ${DB_CFG_HOME}/persistence.xml
@@ -57,5 +58,5 @@ if [ -n "${TURN_PASS}" ]; then
 fi
 echo Current max open files is $(su nobody --shell /bin/bash --command "ulimit -n")
 cd ${OM_HOME}
-sudo --preserve-env=CATALINA_OPTS -u ${DAEMON_USER} HOME=/tmp ${OM_HOME}/bin/catalina.sh run
+sudo --preserve-env=JAVA_OPTS --preserve-env=CATALINA_OPTS -u ${DAEMON_USER} HOME=/tmp ${OM_HOME}/bin/catalina.sh run
 

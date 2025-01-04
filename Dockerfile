@@ -14,14 +14,14 @@
 
 FROM ubuntu:20.04
 ENV OM_VER_MAJ='8'
-ENV OM_VER_MIN='0'
+ENV OM_VER_MIN='1'
 ENV OM_VER_MIC='0'
 ENV OM_VERSION="${OM_VER_MAJ}.${OM_VER_MIN}.${OM_VER_MIC}"
 LABEL vendor="Apache OpenMeetings dev team"
 LABEL version="${OM_VERSION}"
 LABEL maintainer=dev@openmeetings.apache.org
 
-ENV DB_ROOT_PASS '12345'
+ENV DB_ROOT_PASS='12345'
 ENV OM_USER="om_admin"
 ENV OM_PASS="1Q2w3e4r5t^y"
 ENV DAEMON_USER="nobody"
@@ -39,8 +39,8 @@ ENV TURN_PASS=""
 ENV OM_DATA_DIR="/opt/omdata"
 ENV work=/opt
 ENV OM_HOME=/opt/openmeetings
-ENV MYSQL_J_VER="8.3.0"
-ENV DB2_J_VER="11.5.9.0"
+ENV MYSQL_J_VER="9.1.0"
+ENV DB2_J_VER="12.1.0.0"
 ENV PORTS=5443
 ENV SERVER_TZ=UTC
 
