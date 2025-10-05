@@ -18,11 +18,11 @@ if [ "${OM_TYPE}" != "min" ]; then
 
 	apt-get update
 	apt-get install -y --no-install-recommends gnupg2 dirmngr
-	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 234821A61B67740F89BFD669FC8A16625AFA7A83
+	gpg --no-default-keyring --keyring /etc/apt/keyrings/kurento.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 234821A61B67740F89BFD669FC8A16625AFA7A83
 
 	KURENTO_LIST="/etc/apt/sources.list.d/kurento.list"
 	echo "# Kurento Media Server - Release packages" > ${KURENTO_LIST}
-	echo "deb [arch=amd64] http://ubuntu.openvidu.io/7.0.0 focal main" >> ${KURENTO_LIST}
+	echo "deb [signed-by=/etc/apt/keyrings/kurento.gpg] http://ubuntu.openvidu.io/7.2.0 noble main" >> ${KURENTO_LIST}
 
 	echo "mysql-server mysql-server/root_password password ${DB_ROOT_PASS}" | debconf-set-selections
 	echo "mysql-server mysql-server/root_password_again password ${DB_ROOT_PASS}" | debconf-set-selections
