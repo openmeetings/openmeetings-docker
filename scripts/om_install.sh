@@ -18,7 +18,7 @@ if [ "${OM_TYPE}" != "min" ]; then
 
 	apt-get update
 	apt-get install -y --no-install-recommends gnupg2 dirmngr
-	gpg --no-default-keyring --keyring /etc/apt/keyrings/kurento.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 234821A61B67740F89BFD669FC8A16625AFA7A83
+	gpg -k && gpg --no-default-keyring --keyring /etc/apt/keyrings/kurento.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 234821A61B67740F89BFD669FC8A16625AFA7A83
 
 	KURENTO_LIST="/etc/apt/sources.list.d/kurento.list"
 	echo "# Kurento Media Server - Release packages" > ${KURENTO_LIST}

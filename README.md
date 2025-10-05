@@ -105,6 +105,9 @@ docker run -it om-server-full bash
 
 * to join running machine
 ```
+# to get full console output
+Add `--progress=plain --no-cache`
+
 # get container id
 docker ps
 # join
