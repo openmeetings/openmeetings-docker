@@ -1,6 +1,6 @@
 # openmeetings-docker
 
-Docker image for OM (version 8.2.0, WebRTC)
+Docker image for OM (version 8.1.0, WebRTC)
 
 
 ### CREDENTIALS:
@@ -26,7 +26,7 @@ Docker image for OM (version 8.2.0, WebRTC)
 
 ### to run (full) OM:
 ```
-docker run -i --rm --network host apache/openmeetings:8.2.0
+docker run -i --rm --network host apache/openmeetings:8.1.0
 ```
 
 ### to run (mini) OM:
@@ -37,7 +37,7 @@ docker run -p 5443:5443 \
   -e OM_DB_USER=db_user \
   -e OM_DB_PASS=secret_pass \
   --mount type=bind,source=/opt/omdata,target=/opt/omdata \
-  -it apache/openmeetings:min-8.2.0
+  -it apache/openmeetings:min-8.1.0
 
 ```
 > Please Specify `TURN*` parameters in case users from other networks are expected
@@ -82,14 +82,14 @@ AUTH token as password
 This version has no DB and Kurento server, both should be passed via environment
 See below
 ```
-docker build -t apache/openmeetings:min-8.2.0 .
-docker push apache/openmeetings:min-8.2.0
+docker build -t apache/openmeetings:min-8.1.0 .
+docker push apache/openmeetings:min-8.1.0
 ```
 
 ### to build full: 
 ```
-docker build -t apache/openmeetings:8.2.0 --build-arg BUILD_TYPE=full .
-docker push apache/openmeetings:8.2.0
+docker build -t apache/openmeetings:8.1.0 --build-arg BUILD_TYPE=full .
+docker push apache/openmeetings:8.1.0
 ```
 
 ### to run (full) OM (locally built):
