@@ -65,6 +65,8 @@ here are some good examples:
 ### complete clean-up
 ```bash
 docker rm $(docker ps -a -q) ; docker rmi -f $(docker images -q)
+
+docker system prune -f
 ```
 
 ### Authentication
