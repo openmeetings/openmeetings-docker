@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # #############################################
+set -o pipefail
 
 echo "OM server of type ${OM_TYPE} will be set-up"
 if [ "${OM_TYPE}" != "min" ]; then
@@ -22,7 +23,7 @@ if [ "${OM_TYPE}" != "min" ]; then
 
 	KURENTO_LIST="/etc/apt/sources.list.d/kurento.list"
 	echo "# Kurento Media Server - Release packages" > ${KURENTO_LIST}
-	echo "deb [signed-by=/etc/apt/keyrings/kurento.gpg] http://ubuntu.openvidu.io/7.2.0 noble main" >> ${KURENTO_LIST}
+	echo "deb [signed-by=/etc/apt/keyrings/kurento.gpg] http://ubuntu.openvidu.io/7.3.0 noble main" >> ${KURENTO_LIST}
 
 	echo "mysql-server mysql-server/root_password password ${DB_ROOT_PASS}" | debconf-set-selections
 	echo "mysql-server mysql-server/root_password_again password ${DB_ROOT_PASS}" | debconf-set-selections
