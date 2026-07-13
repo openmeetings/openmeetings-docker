@@ -39,8 +39,8 @@ ENV TURN_PASS=""
 ENV OM_DATA_DIR="/opt/omdata"
 ENV work=/opt
 ENV OM_HOME=/opt/openmeetings
-ENV MYSQL_J_VER="9.6.0"
-ENV DB2_J_VER="12.1.4.0"
+ENV MYSQL_J_VER="9.7.0"
+ENV DB2_J_VER="12.1.5.0"
 ENV PORTS=5443
 ENV SERVER_TZ=UTC
 
@@ -58,9 +58,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     imagemagick \
     sox \
     sudo \
-    openjdk-21-jre
-
-RUN apt-get install -y --no-install-recommends \
     libreoffice \
     ffmpeg \
   && apt-get clean \
